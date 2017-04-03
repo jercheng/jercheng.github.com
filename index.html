@@ -1,24 +1,22 @@
 ---
-layout: index
-title: index
+layout: default
 ---
 
-{% assign entries = site.entries | sort: "number" %}
-{% for entry in entries %}
-    {% if entry.title != 'index'%}
-        <section id="{{ entry.sectionid }}" class="{{ entry.sectionclass }}">
-            {% case entry.sectionclass %}
-                {% when 'h1' %}
-                    <h1>{{ entry.title }}</h1>
-                {% when 'h2' %}
-                    <h2>{{ entry.title }}</h2>
-                {% when 'h3' %}
-                    <h3>{{ entry.title }}</h3>
-                {% when 'h4' %}
-                    <h4>{{ entry.title }}</h4>
-            {% endcase %}
-
-            {{ entry.content }}
-        </section>
-    {% endif %}
-{% endfor %}
+<div class="home">
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <br>
+        <h3>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h3>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y %H:%m" }}</span>
+        <hr id="line">
+		<div class="content">
+		{{ post.excerpt }}
+        </div>
+		<br>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
