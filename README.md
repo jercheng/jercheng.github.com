@@ -1,35 +1,19 @@
-# Simpleyyt
+# Docster
+![docster preview](https://raw.githubusercontent.com/DigitalMindCH/docster-jekyll-theme/gh-pages/img/docster_preview.jpg)
 
-My blog based on Jekyll-Bootstrap.
+## simple and easy
+That's how we would describe working with docster.
+We first created it, when we needed an index file for a theme documentation. jekyll offered collections which made the organization into smaller chunks of documentation optimal. Especially because the collections did not generate outputs for themselves.
+This theme was created to generate an organized output. It does not require any plugins, which means you can host on GitHub without much effort.
 
-## About Jekyll-Bootstrap
+## Features
+* Nice syntax highlighting
+* dynamic multi-level navigation
+* Sass stylesheets
 
-For all usage and documentation please see: <http://jekyllbootstrap.com>
+### Documentation
+We don't believe in delivering Code without explanation. Especially not for a documentation theme. So the [Demo](http://digitalmind.ch/themes/docster-jekyll-theme/demo/) doubles as the documentation for Docster, that should help you set up your own docs without any problems.
 
-## About theme
-
-This theme is the copy of [elementaryOS](http://elementaryos.org) portal page. Some features are imperfect, but I will make it more perfect.
-
-## Usage
-
-You can edit the `_config.yml` file to change the setting of site. If you want to change avatar or favicon, just replace the files in `assets\themes\Snail\img`.
-
-## About excerpt
-
-There are 2 ways of excerpt: "teaser" and "truncate_words" (Configurated in _config.yml).
-
- * "teaser": look for the More tag (<!--more-->) and create a teaser from the content that precedes the More tag.
-You must place "<!--more-->" at paragraph in post. The whole content will be displayed in homepage if no More tag found in post.
-
- * "truncate_words": generate an excerpt automatically by selecting the first 20 words of the post. It doesn't work well in some of no-English post.
-
-## Change Log
-
- * Add pagination.
- * Add new way of excerpt.
- * Download google fonts to the local.
- * Add google custom search engine.
-
-## License
-
-[MIT](http://opensource.org/licenses/MIT)
+### Feedback, Wishes, Problems
+If you run into any trouble or have a request please do so by opening up an issue on the theme's GitHub page.
+If you just want to give us a general feedback feel free to [contact us!](http://digitalmind.ch/contact/)
