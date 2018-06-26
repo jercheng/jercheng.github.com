@@ -5,8 +5,21 @@ date:   2018-06-21
 categories: tensorflow
 ---
 
-## 变量、常量
+* [1.skill](#1)
+* [2.变量、常量](#2)
+* [3.变量、常量](#3)
+* [4.变量、常量](#4)
+* [5.变量、常量](#5)
+* [6.变量、常量](#6)
+* [7.变量、常量](#7)
 
+
+#<h2 id="1">1.skills<h2>
+```
+a[np.random.choice(5,2)] 
+```
+
+#<h2 id="2">2.变量、常量<h2>
 ```
 x = tf.Variable([1,2])
 a = tf.constant([3,3])
@@ -22,7 +35,7 @@ with tf.Session() as sess:
     print(sess.run(sub))
     print(sess.run(add))
 ```
- ## 循环递增
+#<h2 id="3">3.循环递增<h2>
 
 ```
 state = tf.Variable(0,name="counter")
@@ -38,8 +51,7 @@ with tf.Session() as sess:
         sess.run(update)
         print(sess.run(state))
 ```
-## fetch、feed
-
+#<h2 id="4">4.fetch、feed<h2>
 ```
 input1 = tf.constant(3.0)
 input2 = tf.constant(2.0)
@@ -62,9 +74,7 @@ output = tf.multiply(input1,input2)
 with tf.Session() as sess:
 	print(sess.run(output,feed_dict={input1:[7.],input2:[2.]}))
 ```
-
-## 简单使用示例
-
+#<h2 id="5">5.简单使用示例<h2>
 ```
 import tensorflow as tf
 import numpy as np
@@ -90,8 +100,7 @@ with tf.Session() as sess:
 			print(step,sess.run([k,b]))
 ```
 
-## 非线性回归
-
+#<h2 id="6">6.非线性回归<h2>
 ```
 import tensorflow as tf
 import numpy as np
@@ -132,9 +141,7 @@ with tf.Session() as sess:
 	plt.show()
 
 ```
-
-## 线性回归
-
+#<h2 id="7">7.非线性回归<h2>
 ```
 import tensorflow as tf
 import numpy as np
@@ -180,7 +187,126 @@ with tf.Session() as sess:
 
 ```
 
-## conv2d
+#<h2 id="8">8.线性回归<h2>
+
+```
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+
+x_vals = np.random.normal(1,0.1,100)
+y_vals = np.repeat(10.,100)
+
+x_data = tf.placeholder(shape = [100,],dtype=tf.float32)
+y_target = tf.placeholder(shape = [100,],dtype=tf.float32)
+
+A = tf.Variable(tf.random_normal(shape = [100,]))
+
+my_output = tf.multiply(x_data,A)
+
+loss = tf.square(my_output - y_target)
+
+my_opt = tf.train.GradientDescentOptimizer(learning_rate=0.02)
+train_step = my_opt.minimize(loss)
+
+
+init = tf.initialize_all_variables()
+
+with tf.Session() as sess:
+    sess.run(init)
+    
+    for i in range(10000): 
+        rand_index = np.random.choice(100)
+
+        rand_x = [x_vals[rand_index]]
+        rand_y = [y_vals[rand_index]]
+        sess.run(train_step,feed_dict={x_data:x_vals,y_target:y_vals})
+
+
+    print(x_vals)
+    print(sess.run(A))
+    prediction_value = sess.run(my_output,feed_dict={x_data:x_vals})
+    print(prediction_value)
+    plt.figure()
+    plt.scatter(x_vals,y_vals)
+    plt.plot(x_vals,prediction_value,'r-',lw=5)
+    plt.show()
+```
+#<h2 id="9">9.iris线性回归<h2>
+```
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets
+import tensorflow as tf
+
+iris=datasets.load_iris()
+# print(iris.target)
+binary_target = np.array([1. if x == 0 else 0. for x in iris.target])
+iris_2d = np.array([[x[2],x[3]] for x in iris.data])
+print(iris_2d)
+
+batch_size = 20
+x1_data = tf.placeholder(shape=[None,1],dtype = tf.float32)
+x2_data = tf.placeholder(shape=[None,1],dtype = tf.float32)
+y_target = tf.placeholder(shape=[None,1],dtype = tf.float32)
+
+A = tf.Variable(tf.random_normal(shape=[1,1]))
+b = tf.Variable(tf.random_normal(shape=[1,1]))
+
+my_mult = tf.matmul(x2_data,A)
+my_add = tf.add(my_mult,b)
+my_output = tf.subtract(x1_data,my_add)
+
+xentropy = tf.nn.sigmoid_cross_entropy_with_logits(logits=my_output,labels=y_target)
+my_opt = tf.train.GradientDescentOptimizer(0.05)
+train_step = my_opt.minimize(xentropy)
+
+init = tf.initialize_all_variables()
+
+with tf.Session() as sess:
+    sess.run(init)
+    
+    for i in range(1000):
+        rand_index = np.random.choice(len(iris_2d),size=batch_size)
+        rand_x = iris_2d[rand_index]
+        
+        rand_x1 = np.array([[x[0]] for x in rand_x])
+        rand_x2 = np.array([[x[1]] for x in rand_x])
+        
+        print(rand_x1,rand_x2)
+        
+        rand_y = np.array([[y] for y in binary_target[rand_index]])
+        
+        sess.run(train_step,feed_dict={x1_data:rand_x1,x2_data:rand_x2,y_target:rand_y})
+        
+        if (i+1)%200 == 0:
+            print(str(sess.run(A)),str(sess.run(b)))
+    
+    [[slope]] = sess.run(A)
+    [[intercept]] = sess.run(b)
+    x = np.linspace(0,3,num=50)
+    ablineValues = []
+    for i in x:
+        ablineValues.append(slope*i+intercept)
+        
+    setosa_x = [a[1] for i,a in enumerate(iris_2d) if binary_target[i] == 1]
+    setosa_y = [a[0] for i,a in enumerate(iris_2d) if binary_target[i] == 1]
+
+    non_setosa_x = [a[1] for i,a in enumerate(iris_2d) if binary_target[i] == 0]
+    non_setosa_y = [a[0] for i,a in enumerate(iris_2d) if binary_target[i] == 0]
+
+    plt.plot(setosa_x,setosa_y,'rx',ms=10,mew=2,label="setosa")
+    plt.plot(non_setosa_x,non_setosa_y,'ro',label="Non-setosa")
+    plt.plot(x,ablineValues,'b-')
+    plt.xlim([0.0,2.7])
+    plt.ylim([0.0,7.1])
+    plt.xlabel('pl')
+    plt.ylabel('pw')
+    plt.legend(loc='lower right')
+    plt.show()
+```
+
+#<h2 id="10">10.conv2d<h2>
 ```
 第二个参数：my_filter [filter_height, filter_width, in_channels,out_channels]
 [卷积核高度，卷积核宽度，图像通道数，卷积核个数]
