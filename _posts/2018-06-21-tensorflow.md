@@ -12,14 +12,19 @@ categories: tensorflow
 * [5.变量、常量](#5)
 * [6.变量、常量](#6)
 * [7.变量、常量](#7)
+* [8.变量、常量](#8)
+* [9.变量、常量](#9)
+* [10.变量、常量](#10)
 
 
-<h2 id="1">1.skills<h2>
+
+<h2 id="1">1.skills</h2>
+
 ```
 a[np.random.choice(5,2)] 
 ```
 
-<h2 id="2">2.变量、常量<h2>
+<h2 id="2">2.变量、常量</h2>
 ```
 x = tf.Variable([1,2])
 a = tf.constant([3,3])
@@ -35,7 +40,7 @@ with tf.Session() as sess:
     print(sess.run(sub))
     print(sess.run(add))
 ```
-<h2 id="3">3.循环递增<h2>
+<h2 id="3">3.循环递增</h2>
 
 ```
 state = tf.Variable(0,name="counter")
@@ -52,7 +57,7 @@ with tf.Session() as sess:
         print(sess.run(state))
 ```
 
-<h2 id="4">4.fetch、feed<h2>
+<h2 id="4">4.fetch、feed</h2>
 
 ```
 input1 = tf.constant(3.0)
@@ -77,7 +82,7 @@ with tf.Session() as sess:
 	print(sess.run(output,feed_dict={input1:[7.],input2:[2.]}))
 ```
 
-<h2 id="5">5.简单使用示例<h2>
+<h2 id="5">5.简单使用示例</h2>
 
 ```
 import tensorflow as tf
@@ -104,7 +109,7 @@ with tf.Session() as sess:
 			print(step,sess.run([k,b]))
 ```
 
-<h2 id="6">6.非线性回归<h2>
+<h2 id="6">6.非线性回归</h2>
 
 ```
 import tensorflow as tf
@@ -147,7 +152,7 @@ with tf.Session() as sess:
 
 ```
 
-<h2 id="7">7.非线性回归<h2>
+<h2 id="7">7.非线性回归</h2>
 
 ```
 import tensorflow as tf
@@ -194,7 +199,7 @@ with tf.Session() as sess:
 
 ```
 
-<h2 id="8">8.线性回归<h2>
+<h2 id="8">8.线性回归</h2>
 
 ```
 import tensorflow as tf
@@ -240,7 +245,7 @@ with tf.Session() as sess:
     plt.show()
 ```
 
-<h2 id="9">9.iris线性回归<h2>
+<h2 id="9">9.iris线性回归</h2>
 
 ```
 import matplotlib.pyplot as plt
@@ -315,7 +320,9 @@ with tf.Session() as sess:
     plt.show()
 ```
 
-<h2 id="10">10.conv2d<h2>
+<h2 id="10">10.conv2d</h2>
+
+
 
 ```
 第二个参数：my_filter [filter_height, filter_width, in_channels,out_channels]
